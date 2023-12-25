@@ -35,6 +35,7 @@ ui = fluidPage(
                   timeFormat = ("%b %Y"),
                   ticks = FALSE
       ),
+      #Add dropdown menu
       selectInput("dropdown_menu", "Select Routes:",
                   choices = c("All", all_routes$Name)
       )
