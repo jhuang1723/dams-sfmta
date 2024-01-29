@@ -81,6 +81,7 @@ server = function(input, output){
   })
   
   ridership_nums_limited <- reactive({
+    #Get selected route
     dummy_selected <- dummy[dummy$Name == input_string, ]
     #Date
     start_date <- as.Date("2023-04-01")
