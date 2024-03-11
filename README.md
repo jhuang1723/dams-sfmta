@@ -4,4 +4,4 @@ Access interactive dashboard here:
 
 Data accessed from: https://www.bart.gov/about/reports/ridership 
 
-Produced by Stanford Data and Mapping Society, 2024
+Produced by Stanford Data and Mapping for Society, 2024
