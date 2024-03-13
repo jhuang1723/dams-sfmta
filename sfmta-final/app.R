@@ -1,11 +1,3 @@
-# install.packages("tidyverse")
-# install.packages("shiny")
-# install.packages("sf")
-# install.packages("leaflet")
-# install.packages("lubridate")
-# install.packages("plotly")
-# install.packages("DT")
-# trying app stuff here
 library(tidyverse)
 library(shiny)
 library(sf)
@@ -14,17 +6,13 @@ library(lubridate)
 library(plotly)
 library(DT)
 
-
 all_routes_data <- st_read("data/Layers.kml", layer="Routes", quiet = TRUE)
 all_routes <- st_zm(all_routes_data, drop = T, what = "ZM")
 
 ridership_numbers <- read.csv("data/df_stations_all_counts.csv")
 routes_ridership <- merge(all_routes, ridership_numbers, by="Name")
 
-#dummy <- read.csv("/Users/yagishinnosuke/Documents/2023-2024 Stanford/DAMS/SFMTA_prototype/dams-sfmta-main/sfmta/bart-ridership/BART_System_2020/dummy.csv")
-#dummy_stations <- c("-","RM", "EN", "EP", "NB", "BK")
-
-dummy <- read.csv("data/all-paths-data-2.csv")
+dummy <- read.csv("data/all-paths-data.csv")
 unique_elements <- unique(unlist(strsplit(dummy$Routes, split = "[~-]")))
 
 dummy_stations <- c("-", unique_elements)
@@ -167,7 +155,5 @@ server = function(input, output){
     }
   })
 }
-
-print(getwd())
 
 shinyApp(ui, server)
