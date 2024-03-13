@@ -42,7 +42,7 @@ ui = fluidPage(
       sliderInput("date_range", "Date Range:",
                   min = as.Date("2018-05-01"),
                   max = as.Date("2023-12-01"),
-                  value = c(as.Date("2018-04-01"), as.Date("2024-01-01")),
+                  value = c(as.Date("2018-05-01"), as.Date("2023-12-01")),
                   step = 1,
                   timeFormat = ("%b %Y"),
                   ticks = FALSE
@@ -99,8 +99,7 @@ server = function(input, output){
     routes_ridership_selected <- routes_ridership[routes_ridership$Name %in% substrings, ]
     copied_columns <- dummy[dummy$Name == input_string, c(3:72)]
     routes_ridership_selected[, c(3:72)] <- copied_columns
-    #print(routes_ridership_selected)
-    
+
     #Date
     start_date <- as.Date(input$date_range[1])
     start_date <- start_date - months(1)
@@ -124,7 +123,6 @@ server = function(input, output){
     return(selected_data)
   })
   
-  #particular_route <- reactive(as.character(input$dropdown_menu))
   start <- reactive(as.character(input$start))
   end <- reactive(as.character(input$end))
   
@@ -146,12 +144,13 @@ server = function(input, output){
                      color = ~pal(total),
                      weight = 5, opacity = 1.0, stroke = TRUE,
                      label = ~paste("Total Ridership:", total), # Add labels showing total ridership
-                     labelOptions = labelOptions(noHide = F, direction = 'auto') # Options for the label appearance
+                     labelOptions = labelOptions(noHide = FALSE, direction = 'auto') # Options for the label appearance
         ) %>%
         addLegend("bottomright", pal = pal, values = ridership_nums()$total,
                   title = "Ridership",
                   opacity = 1
-        ) %>% addCircleMarkers(
+        ) %>% 
+        addCircleMarkers(
           data = station_data, radius = 2, label = station_data$Name)
     } else {
       map %>%
@@ -160,7 +159,7 @@ server = function(input, output){
           color = "red",
           weight = 5, opacity = 1.0, stroke = TRUE,
           label = ~paste("Total Ridership:", total), # Add labels showing total ridership
-          labelOptions = labelOptions(noHide = F, direction = 'auto') # Options for the label appearance
+          labelOptions = labelOptions(noHide = TRUE, direction = 'auto') # Options for the label appearance
         ) %>%
         addCircleMarkers(
           data = station_data, radius = 2, label = ~Name
@@ -168,5 +167,7 @@ server = function(input, output){
     }
   })
 }
+
+print(getwd())
 
 shinyApp(ui, server)
