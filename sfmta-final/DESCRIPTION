@@ -1,0 +1,17 @@
+Package: dams-sfmta
+Type: Shiny
+Title: Shiny App for DAMS-sfmta
+Version: 1.0.0
+Authors@R: "Stanford DAMS 23-24"
+Description: "Tracking Ridership of SFMTA's BART"
+License: None
+Encoding: UTF-8
+LazyData: true
+Suggests:
+    shiny,
+    tidyverse,
+    sf,
+    leaflet,
+    lubridate,
+    plotly,
+    DT

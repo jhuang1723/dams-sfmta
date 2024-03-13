@@ -6,6 +6,7 @@ library(lubridate)
 library(plotly)
 library(DT)
 
+
 all_routes_data <- st_read("data/Layers.kml", layer="Routes", quiet = TRUE)
 all_routes <- st_zm(all_routes_data, drop = T, what = "ZM")
 
@@ -69,10 +70,11 @@ server = function(input, output){
     routes_ridership <- merge(routes_ridership, total_in_period)
     selected_data <- routes_ridership %>%
       mutate(
-        selected_cols = select(., og_date_columns),
-        total = rowSums(st_drop_geometry(selected_cols))
+        selected_cols = select(., all_of(og_date_columns)),
+        total = rowSums(st_drop_geometry(selected_cols)),
       ) %>%
-      select("Name", "geometry", total)
+    select("Name", "geometry", total)
+    
     return(selected_data)
   })
   
@@ -104,10 +106,11 @@ server = function(input, output){
     routes_ridership_selected <- merge(routes_ridership_selected, total_in_period)
     selected_data <- routes_ridership_selected %>%
       mutate(
-        selected_cols = select(., og_date_columns),
-        total = rowSums(st_drop_geometry(selected_cols))
+        selected_cols = select(., all_of(og_date_columns)),
+        total = rowSums(st_drop_geometry(selected_cols)),
       ) %>%
       select("Name", "geometry", total)
+      
     return(selected_data)
   })
   
@@ -153,7 +156,7 @@ server = function(input, output){
           data = station_data, radius = 2, label = ~Name
         )
     }
-  })
+  }) 
 }
 
 shinyApp(ui, server)

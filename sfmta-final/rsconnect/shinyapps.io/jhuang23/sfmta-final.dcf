@@ -1,0 +1,12 @@
+name: sfmta-final
+title:
+username: jhuang23
+account: jhuang23
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11476775
+bundleId: 8366702
+url: https://jhuang23.shinyapps.io/sfmta-final/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
