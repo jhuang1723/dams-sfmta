@@ -82,13 +82,19 @@ server = function(input, output){
     #Get station names
     start_station <- input$start
     end_station <- input$end
-    input_string <- paste(start_station, end_station, sep = "-")
-    string <- dummy[dummy$Name == input_string, 2]
+    input_string_forward <- paste(start_station, end_station, sep = "-")
+    input_string_backward <- paste(end_station, start_station, sep = "-")
+    # Check for both possible combinations
+    string <- dummy[dummy$Name %in% c(input_string_forward, input_string_backward), 2]
     substrings <- unlist(strsplit(string, "~"))
-    # Extract rows from df based on the first column values
     routes_ridership_selected <- routes_ridership[routes_ridership$Name %in% substrings, ]
-    copied_columns <- dummy[dummy$Name == input_string, c(3:72)]
-    routes_ridership_selected[, c(3:72)] <- copied_columns
+    # Check which input string was used and adjust column selection accordingly
+    if (input_string_forward %in% substrings) {
+      copied_columns <- dummy[dummy$Name == input_string_forward, 3:72]
+    } else {
+      copied_columns <- dummy[dummy$Name == input_string_backward, 3:72]
+    }
+    routes_ridership_selected[, 3:72] <- copied_columns
 
     #Date
     start_date <- as.Date(input$date_range[1])
